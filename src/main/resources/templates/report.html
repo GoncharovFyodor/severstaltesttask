@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Отчет</title>
+  <style>
+    table {
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+<div style="text-align: center;">
+  <h1>Поступление видов продукции по поставщикам с итогами по весу и стоимости</h1>
+</div>
+
+<br/><br/>
+
+<div style="text-align: center;">
+  <form action="#" th:action="@{'/report?from={from}&to={to}'}" th:method="get">
+    <input class="form-control" name="from" th:value="${from}" type="date"/>
+    <input class="form-control" name="to" th:value="${to}" type="date"/>
+    <button type="submit" > Сформировать отчет</button>
+  </form>
+</div>
+
+<br/>
+<div>
+  <table border="1">
+    <tr>
+      <th>Продукт</th>
+      <th>Тип продукта</th>
+      <th>Поставщик</th>
+      <th>Вес (кг.)</th>
+      <th>Стоимость (руб.)</th>
+    </tr>
+    <tr th:each="report : ${reports}">
+      <td th:utext="${report.product.type}">...</td>
+      <td th:utext="${report.product.category}">...</td>
+      <td th:utext="${report.supplier.name}">...</td>
+      <td th:utext="${report.totalQuantity}">...</td>
+      <td th:utext="${report.totalSum}">...</td>
+    </tr>
+  </table>
+</div>
+<br/><br/>
+
+<div style="text-align: center;">
+  <br><br>
+  <h3>
+    <a th:href="@{/}">Назад</a>
+    <br><br>
+    <a th:href="@{/supply}">Приемка поставок</a>
+  </h3>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Приемка поставок</title>
+    <style>
+        table {
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center;">
+    <h1>Поступление видов продукции по поставщикам с итогами по весу и стоимости</h1>
+</div>
+
+<br/>
+
+<div style="text-align: center;">
+    <form
+            method="get"
+            th:action="@{/supply?{supplier}&productOne={productOne}&productTwo={productTwo}&productThree={productThree}&productFour={productFour}}">
+        <select class="form-control" id="supplier" name="supplierId">
+            <option value="">Выберите поставщика</option>
+            <option th:each="supplier : ${suppliers}" th:text="${supplier.name}" th:value="${supplier.id}">
+            </option>
+        </select>
+
+        <br>
+        <br>
+        <div>
+            <label>Груша Новый урожай:</label>
+            <input class="form-control" name="productOne" th:value="${productOne}" type="number"/>
+        </div>
+        <div>
+            <label>Груша Конференция:</label>
+            <input class="form-control" name="productTwo" th:value="${productTwo}" type="number"/>
+        </div>
+        <div>
+            <label>Яблоко Скороспелка:</label>
+            <input class="form-control" name="productThree" th:value="${productThree}" type="number"/>
+        </div>
+        <div>
+            <label>Яблоко Алматинский Апорт:</label>
+            <input class="form-control" name="productFour" th:value="${productFour}" type="number"/>
+        </div>
+        <br>
+
+
+        <button type="submit">Принять поставку</button>
+    </form>
+</div>
+
+<br/>
+
+<div style="text-align: center;">
+    <h4>Последние накладные</h4>
+    <table border="1">
+        <tr>
+            <th>Id поставки</th>
+            <th>Дата</th>
+            <th>Поставщик</th>
+            <th>Сумма итого (руб.)</th>
+        </tr>
+        <tr th:each="supply : ${supplies}">
+            <td th:utext="${supply.id}">...</td>
+            <td th:utext="${supply.created}">...</td>
+            <td th:utext="${supply.supplier}">...</td>
+            <td th:utext="${supply.sum}">...</td>
+        </tr>
+    </table>
+</div>
+
+<div style="text-align: center;">
+    <br><br>
+    <h3>
+        <a th:href="@{/}">Назад</a>
+        <br><br>
+        <a th:href="@{/report}">Отчет</a>
+    </h3>
+</div>
+
+
+</body>
+</html>
